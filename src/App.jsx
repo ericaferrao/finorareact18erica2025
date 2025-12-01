@@ -4,7 +4,7 @@ import { getDailyPerformance } from "./services/alphaVantageService"
 
 function App() {
 
-  console.log(getDailyPerformance("AAPL"))
+  console.log("performance", getDailyPerformance("AAPL"))
 
   return (<>
     <SignedOut>
