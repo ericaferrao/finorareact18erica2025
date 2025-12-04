@@ -2,16 +2,27 @@ import React from 'react';
 import { getDailyPerformance } from '../services/alphaVantageService';
 import { useState } from 'react';
 import '../App.css'
+import { createClient } from '@supabase/supabase-js';
 
 
-export default function StockListing() {
+export default function StockListing({ userId }) {
 
     const [symbol, setSymbol] = useState('');
     const [performance, setPerformance] = useState('');
     const [error, setError] = useState('');
 
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+    const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+    const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
     async function handleSubmit(event) {
+
         event.preventDefault();
+
+
+
+        await supabase.from("watchlist").insert({ symbol: symbol.toUpperCase(), user_id: userId });
         setError('');
         setPerformance('');
 
